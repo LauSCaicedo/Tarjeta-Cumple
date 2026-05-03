@@ -10,157 +10,181 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: #1a0f14;
-  color: white;
+  background: black;
   font-family: 'Poppins', sans-serif;
 }
 
-/* INTRO WESTERN */
-#intro {
+/* FONDO ESTRELLAS */
+canvas {
   position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* INTRO */
+#intro {
+  position: absolute;
   width: 100%;
   height: 100vh;
-  background: radial-gradient(circle, #2a1620, #000);
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-/* TEXTO TYPEWRITER */
-#typeText {
+#text {
   font-family: 'Special Elite', cursive;
-  font-size: 30px;
+  font-size: 34px;
+  color: #ffb6c1;
   border-right: 3px solid pink;
   white-space: nowrap;
   overflow: hidden;
-  width: 0;
-  animation: typing 3s steps(50, end) forwards, blink 0.7s infinite;
-  color: #ffb6c1;
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 90% }
-}
-
-@keyframes blink {
-  50% { border-color: transparent }
-}
-
-/* TARJETA COMO FONDO */
+/* TARJETA */
 #card {
   display: none;
+  position: absolute;
   width: 100%;
   height: 100vh;
-  background: url("https://raw.githubusercontent.com/LauSCaicedo/Tarjeta-Cumple/main/invitation.png") center/contain no-repeat;
-  background-color: black;
-  animation: fadeIn 2s ease;
-  position: relative;
+  justify-content: center;
+  align-items: center;
 }
 
-/* EFECTO LUZ ROSA */
-#card::after {
-  content: "";
-  position: absolute;
+/* CONTENEDOR */
+.poster {
+  width: 350px;
+  height: 600px;
+  background: url("https://raw.githubusercontent.com/LauSCaicedo/Tarjeta-Cumple/main/invitation.png") center/contain no-repeat;
+  box-shadow: 0 0 80px rgba(255,105,180,0.5);
+  transform: scale(0.8);
+  animation: reveal 2s forwards;
+}
+
+/* ANIMACIÓN REVELADO */
+@keyframes reveal {
+  from {opacity:0; transform: scale(0.6) rotate(-2deg);}
+  to {opacity:1; transform: scale(1) rotate(0);}
+}
+
+/* FLASH */
+.flash {
+  position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(255,105,180,0.2), transparent 70%);
-  animation: glow 6s infinite alternate;
-}
-
-@keyframes glow {
-  from {opacity: 0.2;}
-  to {opacity: 0.5;}
-}
-
-/* BRILLOS */
-.sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
+  background: pink;
   opacity: 0;
-  animation: sparkle 3s infinite;
-}
-
-@keyframes sparkle {
-  0% {opacity: 0;}
-  50% {opacity: 1;}
-  100% {opacity: 0;}
 }
 
 /* BOTÓN */
 button {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(45deg, #ff69b4, #ff1493);
+  background: linear-gradient(45deg,#ff69b4,#ff1493);
   border: none;
   padding: 15px 30px;
   border-radius: 30px;
   color: white;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 0 25px rgba(255,105,180,0.7);
+  box-shadow: 0 0 30px rgba(255,105,180,0.8);
 }
+
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/03/06/audio_1e3b1bb9c1.mp3">
-</audio>
+<canvas id="stars"></canvas>
 
-<!-- INTRO -->
 <div id="intro">
-  <div id="typeText">
-    Se busca al vaquero o vaquera con más actitud de El Retiro…
-  </div>
+  <div id="text"></div>
 </div>
 
-<!-- TARJETA -->
+<div class="flash" id="flash"></div>
+
 <div id="card">
+  <div class="poster"></div>
   <button onclick="confirmar()">Confirmar asistencia</button>
 </div>
 
+<audio id="bgSound" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7d2f.mp3">
+</audio>
+
 <script>
 
-// partículas
-function createSparkles() {
-  for (let i = 0; i < 35; i++) {
-    let s = document.createElement("div");
-    s.className = "sparkle";
-    s.style.top = Math.random()*100+"%";
-    s.style.left = Math.random()*100+"%";
-    s.style.animationDelay = Math.random()*3+"s";
-    document.getElementById("card").appendChild(s);
+// ⭐ ESTRELLAS DINÁMICAS
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for(let i=0;i<120;i++){
+  stars.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    size: Math.random()*2
+  });
+}
+
+function drawStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "white";
+
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+// ✍️ TYPEWRITER
+const text = "Se busca al vaquero o vaquera con más actitud de El Retiro…";
+let i = 0;
+
+function typing(){
+  if(i < text.length){
+    document.getElementById("text").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing, 40);
+  } else {
+    setTimeout(showCard, 1500);
   }
 }
 
-// transición automática
-setTimeout(() => {
-  document.getElementById("intro").style.opacity = "0";
+typing();
 
-  setTimeout(() => {
+// 🎬 TRANSICIÓN
+function showCard(){
+
+  document.getElementById("flash").style.opacity = "1";
+
+  setTimeout(()=>{
+    document.getElementById("flash").style.opacity = "0";
     document.getElementById("intro").style.display = "none";
-    document.getElementById("card").style.display = "block";
-    createSparkles();
-  }, 1000);
+    document.getElementById("card").style.display = "flex";
+  },500);
+}
 
-}, 3500);
+// 🎵 AUDIO
+document.body.addEventListener("click", ()=>{
+  document.getElementById("bgSound").play();
+},{once:true});
 
-// activar música con interacción
-document.body.addEventListener("click", () => {
-  document.getElementById("music").play();
-}, { once: true });
-
+// 📲 BOTÓN
 function confirmar(){
   window.open("https://wa.me/573147032379?text=Hola,%20confirmo%20asistencia%20al%20cumpleaños%20de%20Salomé");
 }
+
 </script>
 
 </body>
