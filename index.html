@@ -14,7 +14,7 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* FONDO ESTRELLAS */
+/* ESTRELLAS */
 canvas {
   position: fixed;
   top: 0;
@@ -33,7 +33,7 @@ canvas {
 
 #text {
   font-family: 'Special Elite', cursive;
-  font-size: 34px;
+  font-size: 32px;
   color: #ffb6c1;
   border-right: 3px solid pink;
   white-space: nowrap;
@@ -50,20 +50,47 @@ canvas {
   align-items: center;
 }
 
-/* CONTENEDOR */
+/* POSTER */
 .poster {
-  width: 350px;
-  height: 600px;
-  background: url("https://raw.githubusercontent.com/LauSCaicedo/Tarjeta-Cumple/main/invitation.png") center/contain no-repeat;
-  box-shadow: 0 0 80px rgba(255,105,180,0.5);
+  width: 360px;
+  height: 620px;
+  background: url("https://raw.githubusercontent.com/LauSCaicedo/Tarjeta-Cumple/main/invitation.png") center/cover no-repeat;
+  border-radius: 20px;
+  box-shadow: 
+    0 0 80px rgba(255,105,180,0.6),
+    0 0 150px rgba(255,182,193,0.3);
+  position: relative;
   transform: scale(0.8);
-  animation: reveal 2s forwards;
+  animation: reveal 2s forwards, float 5s ease-in-out infinite;
 }
 
-/* ANIMACIÓN REVELADO */
+/* REVEAL */
 @keyframes reveal {
   from {opacity:0; transform: scale(0.6) rotate(-2deg);}
   to {opacity:1; transform: scale(1) rotate(0);}
+}
+
+/* FLOTACIÓN */
+@keyframes float {
+  0% { transform: translateY(0);}
+  50% { transform: translateY(-15px);}
+  100% { transform: translateY(0);}
+}
+
+/* GLOW */
+.poster::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: radial-gradient(circle, rgba(255,182,193,0.3), transparent);
+  animation: glow 5s infinite alternate;
+}
+
+@keyframes glow {
+  from {opacity: 0.2;}
+  to {opacity: 0.5;}
 }
 
 /* FLASH */
@@ -109,13 +136,13 @@ button {
   <button onclick="confirmar()">Confirmar asistencia</button>
 </div>
 
-<audio id="bgSound" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7d2f.mp3">
-</audio>
+<!-- AUDIOS -->
+<audio id="typingSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_7d06a1f2b6.mp3"></audio>
+<audio id="bgMusic" loop src="https://cdn.pixabay.com/audio/2023/03/06/audio_1e3b1bb9c1.mp3"></audio>
 
 <script>
 
-// ⭐ ESTRELLAS DINÁMICAS
+/* ⭐ ESTRELLAS */
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
@@ -144,43 +171,51 @@ function drawStars(){
 
   requestAnimationFrame(drawStars);
 }
-
 drawStars();
 
-// ✍️ TYPEWRITER
+/* 🔊 ACTIVAR AUDIO */
+let audioStarted = false;
+document.body.addEventListener("click", () => {
+  if(!audioStarted){
+    document.getElementById("bgMusic").play();
+    audioStarted = true;
+  }
+});
+
+/* ✍️ TYPEWRITER */
 const text = "Se busca al vaquero o vaquera con más actitud de El Retiro…";
 let i = 0;
 
 function typing(){
   if(i < text.length){
     document.getElementById("text").innerHTML += text.charAt(i);
+
+    let t = document.getElementById("typingSound");
+    t.currentTime = 0;
+    t.play();
+
     i++;
     setTimeout(typing, 40);
   } else {
-    setTimeout(showCard, 1500);
+    setTimeout(showCard, 1200);
   }
 }
 
 typing();
 
-// 🎬 TRANSICIÓN
+/* 🎬 TRANSICIÓN */
 function showCard(){
-
-  document.getElementById("flash").style.opacity = "1";
+  let flash = document.getElementById("flash");
+  flash.style.opacity = "1";
 
   setTimeout(()=>{
-    document.getElementById("flash").style.opacity = "0";
+    flash.style.opacity = "0";
     document.getElementById("intro").style.display = "none";
     document.getElementById("card").style.display = "flex";
-  },500);
+  }, 500);
 }
 
-// 🎵 AUDIO
-document.body.addEventListener("click", ()=>{
-  document.getElementById("bgSound").play();
-},{once:true});
-
-// 📲 BOTÓN
+/* 📲 BOTÓN */
 function confirmar(){
   window.open("https://wa.me/573147032379?text=Hola,%20confirmo%20asistencia%20al%20cumpleaños%20de%20Salomé");
 }
