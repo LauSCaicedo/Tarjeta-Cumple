@@ -9,103 +9,134 @@
 <style>
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#f5e6d3;
+  background:#f3e4d2;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
+  font-family:'Poppins';
 }
 
 /* TARJETA */
 .card{
-  width:360px;
-  height:650px;
+  width:380px;
+  height:680px;
   background:#f5e6d3;
-  border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  border-radius:15px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.3);
   position:relative;
-  overflow:hidden;
   padding:20px;
+  overflow:hidden;
 }
 
-/* DECORACIONES */
+/* LUCES */
+.lights{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+}
+
+/* SOMBRERO */
 .hat{
   position:absolute;
-  top:10px;
+  top:20px;
   right:10px;
-  width:100px;
+  width:110px;
 }
 
+/* LAZO */
 .bow{
   position:absolute;
-  top:10px;
+  top:20px;
   left:10px;
-  width:100px;
+  width:110px;
 }
 
 /* TÍTULO */
 .title{
   text-align:center;
-  margin-top:80px;
+  margin-top:90px;
   font-family:'Playfair Display';
   color:#d63384;
 }
 
+.subtitle{
+  text-align:center;
+  font-size:14px;
+}
+
+/* NOMBRE */
 .name{
   text-align:center;
-  font-size:40px;
-  font-family:'Great Vibes',cursive;
+  font-size:48px;
+  font-family:'Great Vibes';
   color:#e75480;
+}
+
+.lastname{
+  text-align:center;
+  font-size:22px;
+  font-family:'Great Vibes';
+  color:#e75480;
+}
+
+/* EDAD */
+.badge{
+  background:#e75480;
+  color:white;
+  padding:8px;
+  border-radius:10px;
+  text-align:center;
+  width:200px;
+  margin:10px auto;
 }
 
 /* INFO */
 .info{
+  display:flex;
+  justify-content:space-around;
+  margin-top:20px;
   text-align:center;
-  margin-top:10px;
-  font-size:14px;
+  font-size:13px;
 }
 
 /* BOTAS */
 .boots{
   position:absolute;
-  bottom:80px;
+  bottom:120px;
   left:50%;
   transform:translateX(-50%);
-  width:120px;
+  width:130px;
 }
 
 /* CACTUS */
 .cactus{
   position:absolute;
-  bottom:60px;
+  bottom:90px;
   right:10px;
-  width:80px;
+  width:90px;
 }
 
 /* LETRERO */
 .sign{
   position:absolute;
-  bottom:10px;
-  left:10px;
+  bottom:20px;
+  left:15px;
   background:#8b5e3c;
   color:white;
   padding:15px;
-  border-radius:10px;
-  font-size:12px;
+  border-radius:8px;
+  font-size:13px;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  transform:rotate(-5deg);
+  box-shadow:0 10px 20px rgba(0,0,0,0.4);
 }
 
-/* ANIMACIONES */
-.card{
-  animation:fadeIn 1.5s ease;
+.sign:hover{
+  transform:rotate(-5deg) scale(1.05);
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(0.9);}
-  to{opacity:1; transform:scale(1);}
-}
 </style>
 </head>
 
@@ -113,27 +144,40 @@ body{
 
 <div class="card">
 
-  <img class="hat" src="https://pngimg.com/uploads/cowboy_hat/cowboy_hat_PNG38.png">
+  <!-- decoraciones -->
   <img class="bow" src="https://pngimg.com/uploads/bow/bow_PNG24.png">
+  <img class="hat" src="https://pngimg.com/uploads/cowboy_hat/cowboy_hat_PNG38.png">
 
-  <div class="title">
-    <h2>¡Yeehaw!</h2>
-    <p>Prepárate para una tarde llena de diversión,<br>juegos y magia vaquera ✨</p>
+  <!-- contenido -->
+  <div class="title">¡Yeehaw!</div>
+
+  <div class="subtitle">
+    Prepárate para una tarde llena de diversión,<br>
+    juegos y mucha magia vaquera ✨
   </div>
 
   <div class="name">Salomé</div>
-  <div class="name" style="font-size:20px;">Arrieta Henao</div>
+  <div class="lastname">Arrieta Henao</div>
+
+  <div class="badge">Cumple 6 años</div>
 
   <div class="info">
-    🎂 Cumple 6 años <br><br>
-    📅 9 de mayo de 2026 <br>
-    ⏰ 2:30 PM <br>
-    📍 El Retiro
+    <div>
+      📅 <br>9 mayo 2026
+    </div>
+    <div>
+      ⏰ <br>2:30 PM
+    </div>
+    <div>
+      📍 <br>El Retiro
+    </div>
   </div>
 
+  <!-- decoraciones inferiores -->
   <img class="boots" src="https://pngimg.com/uploads/boots/boots_PNG34.png">
   <img class="cactus" src="https://pngimg.com/uploads/cactus/cactus_PNG15.png">
 
+  <!-- boton -->
   <div class="sign" onclick="confirmar()">
     Confirma tu asistencia<br>
     📞 314 703 2379
