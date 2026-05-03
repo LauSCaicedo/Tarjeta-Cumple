@@ -4,132 +4,146 @@
 <meta charset="UTF-8">
 <title>Invitación Salomé</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(#1a0f14, #000);
-  color: white;
-  overflow: hidden;
-}
-
-/* INTRO */
-#intro {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle, #2a1620, #000);
-  text-align: center;
-}
-
-#startBtn {
-  margin-top: 30px;
-  padding: 12px 25px;
-  border-radius: 30px;
-  border: none;
-  background: #ff69b4;
-  color: white;
-  cursor: pointer;
-}
-
-/* TEXTO */
-#text {
-  font-family: 'Special Elite', cursive;
-  font-size: 32px;
-  color: #ffb6c1;
-  border-right: 3px solid pink;
-  white-space: nowrap;
-  overflow: hidden;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f5e6d3;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
 /* TARJETA */
-#card {
-  display: none;
-  height: 100vh;
-  background: radial-gradient(circle, rgba(255,105,180,0.2), black);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.card{
+  width:360px;
+  height:650px;
+  background:#f5e6d3;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  position:relative;
+  overflow:hidden;
+  padding:20px;
 }
 
-/* POSTER */
-.poster {
-  width: 360px;
-  height: 620px;
-  background: url("https://raw.githubusercontent.com/LauSCaicedo/Tarjeta-Cumple/main/invitation.png") center/cover no-repeat;
-  border-radius: 20px;
-  box-shadow: 0 0 80px rgba(255,105,180,0.6);
-  animation: fadeIn 2s ease;
+/* DECORACIONES */
+.hat{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:100px;
 }
 
-/* BOTÓN */
-button {
-  margin-top: 20px;
-  background: linear-gradient(45deg,#ff69b4,#ff1493);
-  border: none;
-  padding: 15px 30px;
-  border-radius: 30px;
-  color: white;
-  cursor: pointer;
+.bow{
+  position:absolute;
+  top:10px;
+  left:10px;
+  width:100px;
 }
 
-@keyframes fadeIn {
-  from {opacity:0; transform: scale(0.8);}
-  to {opacity:1; transform: scale(1);}
+/* TÍTULO */
+.title{
+  text-align:center;
+  margin-top:80px;
+  font-family:'Playfair Display';
+  color:#d63384;
+}
+
+.name{
+  text-align:center;
+  font-size:40px;
+  font-family:'Great Vibes',cursive;
+  color:#e75480;
+}
+
+/* INFO */
+.info{
+  text-align:center;
+  margin-top:10px;
+  font-size:14px;
+}
+
+/* BOTAS */
+.boots{
+  position:absolute;
+  bottom:80px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+}
+
+/* CACTUS */
+.cactus{
+  position:absolute;
+  bottom:60px;
+  right:10px;
+  width:80px;
+}
+
+/* LETRERO */
+.sign{
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  background:#8b5e3c;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  font-size:12px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* ANIMACIONES */
+.card{
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<div id="intro">
-  <div id="text"></div>
-  <button id="startBtn">Entrar 🤠</button>
-</div>
+<div class="card">
 
-<div id="card">
-  <div class="poster"></div>
-  <button onclick="confirmar()">Confirmar asistencia</button>
-</div>
+  <img class="hat" src="https://pngimg.com/uploads/cowboy_hat/cowboy_hat_PNG38.png">
+  <img class="bow" src="https://pngimg.com/uploads/bow/bow_PNG24.png">
 
-<audio id="typingSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_7d06a1f2b6.mp3"></audio>
-<audio id="bgMusic" loop src="https://cdn.pixabay.com/audio/2023/03/06/audio_1e3b1bb9c1.mp3"></audio>
+  <div class="title">
+    <h2>¡Yeehaw!</h2>
+    <p>Prepárate para una tarde llena de diversión,<br>juegos y magia vaquera ✨</p>
+  </div>
+
+  <div class="name">Salomé</div>
+  <div class="name" style="font-size:20px;">Arrieta Henao</div>
+
+  <div class="info">
+    🎂 Cumple 6 años <br><br>
+    📅 9 de mayo de 2026 <br>
+    ⏰ 2:30 PM <br>
+    📍 El Retiro
+  </div>
+
+  <img class="boots" src="https://pngimg.com/uploads/boots/boots_PNG34.png">
+  <img class="cactus" src="https://pngimg.com/uploads/cactus/cactus_PNG15.png">
+
+  <div class="sign" onclick="confirmar()">
+    Confirma tu asistencia<br>
+    📞 314 703 2379
+  </div>
+
+</div>
 
 <script>
-const text = "Se busca al vaquero o vaquera con más actitud de El Retiro…";
-let i = 0;
-
-function typing(){
-  if(i < text.length){
-    document.getElementById("text").innerHTML += text.charAt(i);
-
-    let t = document.getElementById("typingSound");
-    t.currentTime = 0;
-    t.play();
-
-    i++;
-    setTimeout(typing, 40);
-  }
-}
-
-typing();
-
-document.getElementById("startBtn").onclick = () => {
-  document.getElementById("bgMusic").play();
-
-  document.getElementById("intro").style.display = "none";
-  document.getElementById("card").style.display = "flex";
-};
-
 function confirmar(){
-  window.open("https://wa.me/573147032379?text=Hola,%20confirmo%20asistencia%20al%20cumpleaños%20de%20Salomé");
+  window.open("https://wa.me/573147032379");
 }
 </script>
 
