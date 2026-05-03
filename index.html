@@ -4,61 +4,74 @@
 <meta charset="UTF-8">
 <title>Invitación Salomé</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
   overflow: hidden;
+  background: #1a0f14;
+  color: white;
   font-family: 'Poppins', sans-serif;
-  background: black;
 }
 
-/* INTRO */
+/* INTRO WESTERN */
 #intro {
   position: fixed;
   width: 100%;
   height: 100vh;
+  background: radial-gradient(circle, #2a1620, #000);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   text-align: center;
-  background: radial-gradient(circle, #1a1a1a, #000);
 }
 
-#intro-text {
-  font-size: 28px;
-  opacity: 0;
-  animation: fadeInText 2.5s forwards;
+/* TEXTO TYPEWRITER */
+#typeText {
+  font-family: 'Special Elite', cursive;
+  font-size: 30px;
+  border-right: 3px solid pink;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3s steps(50, end) forwards, blink 0.7s infinite;
+  color: #ffb6c1;
 }
 
-@keyframes fadeInText {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 90% }
 }
 
-/* TARJETA */
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+/* TARJETA COMO FONDO */
 #card {
   display: none;
   width: 100%;
   height: 100vh;
+  background: url("https://raw.githubusercontent.com/LauSCaicedo/Tarjeta-Cumple/main/invitation.png") center/contain no-repeat;
+  background-color: black;
+  animation: fadeIn 2s ease;
   position: relative;
-  background: black;
 }
 
-/* IMAGEN */
-#card img {
+/* EFECTO LUZ ROSA */
+#card::after {
+  content: "";
+  position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: black;
-  animation: zoomIn 2s ease;
+  background: radial-gradient(circle, rgba(255,105,180,0.2), transparent 70%);
+  animation: glow 6s infinite alternate;
 }
 
-@keyframes zoomIn {
-  from {transform: scale(1.05);}
-  to {transform: scale(1);}
+@keyframes glow {
+  from {opacity: 0.2;}
+  to {opacity: 0.5;}
 }
 
 /* BRILLOS */
@@ -69,10 +82,10 @@ body {
   background: white;
   border-radius: 50%;
   opacity: 0;
-  animation: sparkleAnim 3s infinite;
+  animation: sparkle 3s infinite;
 }
 
-@keyframes sparkleAnim {
+@keyframes sparkle {
   0% {opacity: 0;}
   50% {opacity: 1;}
   100% {opacity: 0;}
@@ -81,66 +94,56 @@ body {
 /* BOTÓN */
 button {
   position: absolute;
-  bottom: 30px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(45deg, #ff69b4, #ff1493);
   border: none;
   padding: 15px 30px;
-  color: white;
   border-radius: 30px;
+  color: white;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(255,105,180,0.6);
-}
-
-button:hover {
-  transform: translateX(-50%) scale(1.05);
-}
-
-/* FADE */
-.fadeOut {
-  animation: fadeOut 1s forwards;
-}
-
-@keyframes fadeOut {
-  to {opacity: 0;}
+  box-shadow: 0 0 25px rgba(255,105,180,0.7);
 }
 </style>
 </head>
 
 <body>
 
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/06/audio_1e3b1bb9c1.mp3">
+</audio>
+
 <!-- INTRO -->
 <div id="intro">
-  <div id="intro-text">
+  <div id="typeText">
     Se busca al vaquero o vaquera con más actitud de El Retiro…
   </div>
 </div>
 
 <!-- TARJETA -->
 <div id="card">
-  <img src="invitation.png" alt="Invitación">
-
   <button onclick="confirmar()">Confirmar asistencia</button>
 </div>
 
 <script>
-// crear brillos
+
+// partículas
 function createSparkles() {
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 35; i++) {
     let s = document.createElement("div");
     s.className = "sparkle";
-    s.style.top = Math.random() * 100 + "%";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.animationDelay = Math.random() * 3 + "s";
+    s.style.top = Math.random()*100+"%";
+    s.style.left = Math.random()*100+"%";
+    s.style.animationDelay = Math.random()*3+"s";
     document.getElementById("card").appendChild(s);
   }
 }
 
-// transición
+// transición automática
 setTimeout(() => {
-  document.getElementById("intro").classList.add("fadeOut");
+  document.getElementById("intro").style.opacity = "0";
 
   setTimeout(() => {
     document.getElementById("intro").style.display = "none";
@@ -148,10 +151,14 @@ setTimeout(() => {
     createSparkles();
   }, 1000);
 
-}, 3000);
+}, 3500);
 
-// botón
-function confirmar() {
+// activar música con interacción
+document.body.addEventListener("click", () => {
+  document.getElementById("music").play();
+}, { once: true });
+
+function confirmar(){
   window.open("https://wa.me/573147032379?text=Hola,%20confirmo%20asistencia%20al%20cumpleaños%20de%20Salomé");
 }
 </script>
